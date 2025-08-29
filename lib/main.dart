@@ -21,7 +21,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: const LoginScreen(),
+      home: const LoginScreen(),
       // home: const EditScreen(),
     );
   }
