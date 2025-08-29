@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 40,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 190, 190, 190),
+                  color: Colors.grey,
                   shape: BoxShape.circle,
                 ),
                 child: Text(
@@ -115,9 +115,13 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: Colors.blue,
               foregroundColor: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                expandMore = !expandMore;
+              });
+            },
             child: Icon(
-              Icons.expand_more,
+              expandMore ? Icons.menu : Icons.expand_less,
               color: Colors.white,
               size: 20,
             ),
