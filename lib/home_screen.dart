@@ -11,13 +11,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool expandMore = false;
-
+  bool showTrailing = false;
+  int? selectedIndex;
   @override
   Widget build(BuildContext context) {
     final String uid = FirebaseAuth.instance.currentUser?.uid ?? '';
     final Stream<QuerySnapshot> notesStream = FirebaseFirestore.instance
         .collection('notes')
         .where('uid', isEqualTo: uid)
+        .orderBy('timestamp', descending: true)
         .snapshots();
 
     return Scaffold(
@@ -81,20 +83,46 @@ class _HomeScreenState extends State<HomeScreen> {
           }
 
           final notes = snapshot.data!.docs;
-
           return ListView.separated(
             itemCount: notes.length,
             itemBuilder: (context, index) {
               final note = notes[index];
+              final showTrailing = selectedIndex == index;
+
               return Card(
                 color: Colors.transparent,
                 shadowColor: Colors.transparent,
                 child: ListTile(
+                  onLongPress: () {
+                    setState(() {
+                      if (selectedIndex == index) {
+                        selectedIndex = null;
+                      } else {
+                        selectedIndex = index;
+                      }
+                    });
+                  },
                   title: Text(
                     note['title'],
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: expandMore == true ? null : Text(note['content']),
+                  trailing: showTrailing
+                      ? Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.edit, color: Colors.blue),
+                              onPressed: () {},
+                            ),
+                            IconButton(
+                              icon:
+                                  const Icon(Icons.delete, color: Colors.blue),
+                              onPressed: () {},
+                            ),
+                          ],
+                        )
+                      : null,
                 ),
               );
             },
