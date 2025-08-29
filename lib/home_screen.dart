@@ -118,7 +118,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             IconButton(
                               icon:
                                   const Icon(Icons.delete, color: Colors.blue),
-                              onPressed: () {},
+                              onPressed: () async {
+                                await FirebaseFirestore.instance
+                                    .collection('notes')
+                                    .doc(note.id)
+                                    .delete();
+                              },
                             ),
                           ],
                         )
