@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:starter_code/note.dart';
+
+import 'edit_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,13 +16,14 @@ class _HomeScreenState extends State<HomeScreen> {
   bool expandMore = false;
   bool showTrailing = false;
   int? selectedIndex;
+
   @override
   Widget build(BuildContext context) {
     final String uid = FirebaseAuth.instance.currentUser?.uid ?? '';
     final Stream<QuerySnapshot> notesStream = FirebaseFirestore.instance
         .collection('notes')
         .where('uid', isEqualTo: uid)
-        .orderBy('timestamp', descending: true)
+        .orderBy('timestamp', descending: false)
         .snapshots();
 
     return Scaffold(
@@ -93,6 +97,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.transparent,
                 shadowColor: Colors.transparent,
                 child: ListTile(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EditScreen(
+                                noteId: note.id,
+                                title: note['title'],
+                                content: note['content'],
+                                edit: false,
+                                add: false,
+                              )),
+                    );
+                  },
                   onLongPress: () {
                     setState(() {
                       if (selectedIndex == index) {
@@ -113,7 +130,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             IconButton(
                               icon: const Icon(Icons.edit, color: Colors.blue),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditScreen(
+                                            noteId: note.id,
+                                            title: note['title'],
+                                            content: note['content'],
+                                            edit: true,
+                                            add: false,
+                                          )),
+                                );
+                              },
                             ),
                             IconButton(
                               icon:
@@ -166,7 +195,16 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: Colors.blue,
               foregroundColor: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EditScreen(
+                          edit: false,
+                          add: true,
+                        )),
+              );
+            },
             child: const Icon(
               Icons.add,
               color: Colors.white,
