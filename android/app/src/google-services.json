@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "332434296080",
+    "project_id": "myfirstnoteapp-1599d",
+    "storage_bucket": "myfirstnoteapp-1599d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332434296080:android:abfabeaad0e454229e6995",
+        "android_client_info": {
+          "package_name": "com.example.starter_code"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4aE8hUWuKchJ1V_4wSieyfTqadLcs0o0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332434296080:android:3b1304e80abd59d19e6995",
+        "android_client_info": {
+          "package_name": "com.example.starter_code"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4aE8hUWuKchJ1V_4wSieyfTqadLcs0o0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
